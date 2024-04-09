@@ -49,8 +49,54 @@ class DaoCity:
         query = 'UPDATE cities SET name = %s, status = %s WHERE ciudad_id = %s'
         return self.connection.execute_query(query, (city.name, city.status, city.id))
 
-    def delete(self, id):
+    def delete(self, ciudad_id):
         query = 'DELETE FROM cities WHERE ciudad_id = %s'
         return self.connection.execute_query(query, (id))
 
-    
+class DaoEmployee:
+    def __init__(self, connection):
+        self.connection = connection
+
+    def get_all(self):
+        query = 'SELECT * FROM employees'
+        return self.connection.execute_read_query(query, ())
+
+    def get_by_id(self, id):
+        query = 'SELECT * FROM employees WHERE employees_id = %s'
+        return self.connection.execute_read_query(query, (id,))
+
+    def insert(self, employee):
+        query = 'INSERT INTO employees (nombre, salario, status) VALUES (%s, %s, %s, %s, %s)'
+        return self.connection.execute_query(query, (employee.name, employee.salario, employee.status))
+
+    def update(self, employee):
+        query = 'UPDATE employees SET nombre = %s, ciudad_id = %s, jobs_id = %s, salario = %s, status = %s WHERE employees_id = %s'
+        return self.connection.execute_query(query, (employee.name, employee.ciudad_id, employee.jobs_id, employee.salario, employee.status, employee.id))
+
+    def delete(self, id):
+        query = 'DELETE FROM employees WHERE employees_id = %s'
+        return self.connection.execute_query(query, (id,))
+
+class DaoJobs:
+    def __init__(self, connection):
+        self.connection = connection
+
+    def get_all(self):
+        query = 'SELECT * FROM jobsj'
+        return self.connection.execute_read_query(query, ())
+
+    def get_by_id(self, id):
+        query = 'SELECT * FROM jobsj WHERE id = %s'
+        return self.connection.execute_read_query(query, (id,))
+
+    def insert(self, job):
+        query = 'INSERT INTO jobsj (name, status) VALUES (%s, %s)'
+        return self.connection.execute_query(query, (job.name, job.status))
+
+    def update(self, job):
+        query = 'UPDATE jobsj SET name = %s, status = %s WHERE id = %s'
+        return self.connection.execute_query(query, (job.name, job.status, job.id))
+
+    def delete(self, id):
+        query = 'DELETE FROM jobsj WHERE id = %s'
+        return self.connection.execute_query(query, (id,))
